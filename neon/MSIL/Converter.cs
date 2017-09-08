@@ -449,6 +449,11 @@ namespace Neo.Compiler.MSIL
                 case CodeEx.Ldarga_S:
                     _ConvertLdArg(src, to, src.tokenI32);
                     break;
+
+                case CodeEx.Starg_S:
+                case CodeEx.Starg:
+                    _ConvertStArg(src, to, src.tokenI32);
+                    break;
                 //需要地址轉換的情況
                 case CodeEx.Br:
                 case CodeEx.Br_S:

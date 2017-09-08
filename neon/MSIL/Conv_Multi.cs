@@ -120,7 +120,19 @@ namespace Neo.Compiler.MSIL
             ////pick
             //_Convert1by1(VM.OpCode.PICK, null, to);
         }
+        private void _ConvertStArg(OpCode src, AntsMethod to, int pos)
+        {
+            //get array
+            _Convert1by1(VM.OpCode.DUPFROMALTSTACK, src, to);
+            //set i
+            _ConvertPush(pos, null, to);//翻转取参数顺序
 
+            //got v to top
+            _ConvertPush(2, null, to);
+            _Convert1by1(VM.OpCode.ROLL, null, to);
+
+            _Convert1by1(VM.OpCode.SETITEM, null, to);
+        }
         public bool IsSysCall(Mono.Cecil.MethodDefinition defs, out string name)
         {
             if (defs == null)
